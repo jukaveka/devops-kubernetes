@@ -13,4 +13,4 @@ spec:
     spec:
       containers:
       - name: todo-app
-        image: jukaveyo/todo-app:1.2
+        image: jukaveyo/todo-app:1.5
