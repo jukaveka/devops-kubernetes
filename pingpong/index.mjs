@@ -3,7 +3,7 @@ const app = express();
 
 let count = 0;
 
-app.get("/", (req, res) => {
+app.get("/pingpong", (req, res) => {
   const oldCount = count;
   count = count + 1;
   return res.send(`pong ${oldCount}`);
