@@ -1,5 +1,19 @@
-import randomString from "./randomString.mjs";
-import http from "http";
+import { appendFile } from "fs/promises";
+
+const generateRandomString = (length) => {
+  let randomString = "";
+  const characters = "abcdefghijklmnopqrstuvwxYzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-";
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor((Math.random() * characters.length + 1) - 1);
+    const character = characters[randomIndex];
+    randomString = randomString.concat(character);
+  }
+
+  return randomString;
+};
+
+const randomString = generateRandomString(20);
 
 const sleep = (duration) => {
   return new Promise(resolve => setTimeout(resolve, duration));
@@ -8,22 +22,11 @@ const sleep = (duration) => {
 const main = async () => {
   for (let i = 0; i < 3; i++) {
     const time = new Date().toISOString();
-    console.log(`${time}: ${randomString}`)
+    console.log(`${time}: ${randomString}`);
+    appendFile("output/log.txt", `\n${time}: ${randomString}`, { encoding: "utf8" });
     await sleep(5000);
     i--;
   }
 }
 
 main();
-
-const server = http.createServer((req, res) => {
-  const time = new Date().toISOString();
-  res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-  res.end(`${time}: ${randomString}`);
-});
-
-const port = 3000;
-
-server.listen(port, () => {
-    console.log(`Server running at port ${port}`);
-});
