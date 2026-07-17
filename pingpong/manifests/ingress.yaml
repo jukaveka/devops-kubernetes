@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ping-pong-ingress
+  labels:
+    app.kubernetes.io/name: ping-pong-ingress
+spec:
+  rules:
+    - http:
+        paths:
+        - pathType: Prefix
+          path: "/pingpong"
+          backend:
+            service:
+              name: ping-pong-svc
+              port: 
+                number: 1002
