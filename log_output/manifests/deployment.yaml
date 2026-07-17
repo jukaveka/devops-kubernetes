@@ -12,6 +12,17 @@ spec:
       labels:
         app: log-output
     spec:
+      volumes:
+        - name: log-output-volume
+          emptyDir: {}
       containers:
-      - name: log-output
-        image: jukaveyo/log-output:1.7
+      - name: log-output-logger
+        image: jukaveyo/log-output-logger:1.10
+        volumeMounts:
+        - name: log-output-volume
+          mountPath: /usr/src/app/output
+      - name: log-output-server
+        image: jukaveyo/log-output-server:1.10
+        volumeMounts:
+        - name: log-output-volume
+          mountPath: /usr/src/app/output
