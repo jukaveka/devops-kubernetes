@@ -1,16 +1,16 @@
-import http from "http";
+import express from "express";
+const app = express();
 
 let count = 0;
 
-const server = http.createServer((req, res) => {
+app.get("/", (req, res) => {
   const oldCount = count;
   count = count + 1;
-  res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-  res.end(`pong ${oldCount}`);
-});
+  return res.send(`pong ${oldCount}`);
+})
 
-const port = 3000;
+const port = process.env.PORT ? process.env.PORT : 3000;
 
-server.listen(port, () => {
-  console.log(`Server running at port ${port}`)
+app.listen(port, () => {
+  console.log(`Server started in port ${port}`)
 });
