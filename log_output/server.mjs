@@ -1,4 +1,5 @@
-import http from "http";
+import express from "express";
+const app = express();
 import { readFile } from "fs/promises";
 
 const readLastLog = async () => {
@@ -12,14 +13,13 @@ const readLastLog = async () => {
   }
 }
 
-const server = http.createServer(async (req, res) => {
+app.get("/", async (req, res) => {
   const log = await readLastLog();
-  res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-  res.end(`${log}`);
-});
+  return res.send(`${log}`);
+})
 
-const port = 3000;
+const port = process.env.PORT ? process.env.PORT : 3000;
 
-server.listen(port, () => {
+app.listen(port, () => {
     console.log(`Server running at port ${port}`);
 });
