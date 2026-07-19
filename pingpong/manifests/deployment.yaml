@@ -18,7 +18,7 @@ spec:
             claimName: ping-pong-claim
       containers:
       - name: ping-pong
-        image: jukaveyo/ping-pong:1.11
+        image: jukaveyo/ping-pong:1.11.1
         volumeMounts:
           - name: ping-pong-count
             mountPath: /usr/src/app/files

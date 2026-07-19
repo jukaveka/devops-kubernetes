@@ -4,10 +4,10 @@ import { writeFile } from "fs/promises";
 
 let count = 0;
 
-app.get("/pingpong", (req, res) => {
+app.get("/pingpong", async (req, res) => {
   const oldCount = count;
   count = count + 1;
-  writeFile("files/count.txt", `Ping / Pongs: ${oldCount}` ,{ encoding: "utf8" } )
+  await writeFile("files/count.txt", `Ping / Pongs: ${oldCount}` ,{ encoding: "utf8" } );
   return res.send(`pong ${oldCount}`);
 })
 

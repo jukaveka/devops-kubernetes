@@ -13,9 +13,19 @@ const readLastLog = async () => {
   }
 }
 
+const readPongCount = async () => {
+  try {
+    const count = await readFile("files/count.txt", { encoding: "utf8" });
+    return count;
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
 app.get("/", async (req, res) => {
   const log = await readLastLog();
-  return res.send(`${log}`);
+  const count = await readPongCount();
+  return res.send(`${log} <br\> ${count}`);
 })
 
 const port = process.env.PORT ? process.env.PORT : 3000;
