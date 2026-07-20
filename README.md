@@ -1,3 +1,9 @@
+## Volumes
+
+```
+kubectl apply -f volumes
+```
+
 ## Exercises
 
 ### Chapter 2
@@ -12,3 +18,4 @@
 - [1.8.](https://github.com/jukaveka/devops-kubernetes/tree/1.8/todo_app)
 - [1.9.](https://github.com/jukaveka/devops-kubernetes/tree/1.9/pingpong)
 - [1.10.](https://github.com/jukaveka/devops-kubernetes/tree/1.10/log_output)
+- [1.11.](https://github.com/jukaveka/devops-kubernetes/tree/1.11/log_output)
