@@ -11,6 +11,13 @@ spec:
       labels:
         app: todo-app
     spec:
+      volumes:
+        - name: todo-app-public-files
+          persistentVolumeClaim:
+            claimName: todo-app-claim
       containers:
       - name: todo-app
-        image: jukaveyo/todo-app:1.5
+        image: jukaveyo/todo-app:1.12.67
+        volumeMounts:
+          - name: todo-app-public-files
+            mountPath: /usr/src/app/public
