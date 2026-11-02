@@ -9,6 +9,12 @@ const __dirname = import.meta.dirname;
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 
+const todos = [
+  { id: 1, content: "Need to learn EJS for Kubernetes course", done: true },
+  { id: 2, content: "Familiarize with Lens as Kubernetes GUI", done: false },
+  { id: 3, content: "Setup GKE account", done: false }
+]
+
 const isEmpty = (value) => {
   return value === undefined || value === 0 || value === null || value === "";
 }
@@ -34,9 +40,6 @@ app.get("/", async (req, res) => {
   const dirPath = path.join(__dirname, "public", "images")
   const filePath = path.join(dirPath, "image.jpg")
 
-  console.log(dirPath)
-  console.log(filePath)
-
   try {
     const stats = await stat(filePath)
     fetchedAt = new Date(stats.mtimeMs)
@@ -57,7 +60,7 @@ app.get("/", async (req, res) => {
     }
   }
 
-  return res.render("index");
+  return res.render("index", { todos });
 })
 
 const port = process.env.PORT ? process.env.PORT : 3000;
