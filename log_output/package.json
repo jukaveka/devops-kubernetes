@@ -8,10 +8,15 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.mjs",
+    "dev": "npx nodemon server.mjs",
     "logger": "node index.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "axios": "^1.21.0",
     "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }
