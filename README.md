@@ -23,3 +23,5 @@ kubectl apply -f volumes
 - [1.13.](https://github.com/jukaveka/devops-kubernetes/tree/1.13/todo_app)
 
 ### Chapter 3
+
+- [2.1](https://github.com/jukaveka/devops-kubernetes/tree/2.1/log_output)
