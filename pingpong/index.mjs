@@ -1,6 +1,6 @@
 import express from "express";
 const app = express();
-import { writeFile } from "fs/promises";
+import { readFile, writeFile } from "fs/promises";
 
 let count = 0;
 
@@ -9,6 +9,11 @@ app.get("/pingpong", async (req, res) => {
   count = count + 1;
   await writeFile("files/count.txt", `Ping / Pongs: ${oldCount}` ,{ encoding: "utf8" } );
   return res.send(`pong ${oldCount}`);
+})
+
+app.get("/pings", async  (req, res) => {
+  const content = await readFile("files/count.txt", { encoding: "utf8" })
+  return res.json({ pings: content })
 })
 
 const port = process.env.PORT ? process.env.PORT : 3000;

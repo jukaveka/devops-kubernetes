@@ -9,4 +9,4 @@ spec:
   ports:
   - port: 1001
     protocol: TCP
-    targetPort: 3000
+    targetPort: 3003

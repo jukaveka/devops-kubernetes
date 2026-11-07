@@ -7,8 +7,8 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "start": "node server.mjs",
-    "dev": "npx nodemon server.mjs",
+    "start": "NODE_ENV=production node server.mjs",
+    "dev": "NODE_ENV=development npx nodemon server.mjs",
     "logger": "node index.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

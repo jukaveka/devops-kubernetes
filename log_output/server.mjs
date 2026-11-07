@@ -1,6 +1,11 @@
 import express from "express";
 const app = express();
 import { readFile } from "fs/promises";
+import axios from "axios";
+
+const pingpongAddress = process.env.NODE_ENV === "production"
+  ? "http://ping-pong-svc:1002/pings"
+  : "http://localhost:3000/pings"
 
 const readLastLog = async () => {
   try {
@@ -15,8 +20,8 @@ const readLastLog = async () => {
 
 const readPongCount = async () => {
   try {
-    const count = await readFile("files/count.txt", { encoding: "utf8" });
-    return count;
+    const response = await axios.get(pingpongAddress)
+    return response.data.pings;
   } catch (error) {
     console.log(error.message)
   }
@@ -28,7 +33,7 @@ app.get("/", async (req, res) => {
   return res.send(`${log} <br\> ${count}`);
 })
 
-const port = process.env.PORT ? process.env.PORT : 3000;
+const port = process.env.PORT ? process.env.PORT : 3003;
 
 app.listen(port, () => {
     console.log(`Server running at port ${port}`);
