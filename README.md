@@ -25,3 +25,4 @@ kubectl apply -f volumes
 ### Chapter 3
 
 - [2.1](https://github.com/jukaveka/devops-kubernetes/tree/2.1/log_output)
+- [2.2](https://github.com/jukaveka/devops-kubernetes/tree/2.2/todo_backend)
