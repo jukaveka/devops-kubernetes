@@ -8,10 +8,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.mjs",
-    "dev": "npx nodemon index.mjs"
+    "start": "NODE_ENV=production node index.mjs",
+    "dev": "NODE_ENV=development npx nodemon index.mjs"
   },
   "dependencies": {
+    "axios": "^1.21.0",
     "ejs": "^6.0.1",
     "express": "^5.2.1"
   },

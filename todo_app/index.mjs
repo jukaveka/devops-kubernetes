@@ -1,5 +1,6 @@
 import express from "express";
 const app = express();
+import axios from "axios";
 
 import { mkdir, stat, writeFile } from "fs/promises";
 
@@ -9,11 +10,8 @@ const __dirname = import.meta.dirname;
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 
-const todos = [
-  { id: 1, content: "Need to learn EJS for Kubernetes course", done: true },
-  { id: 2, content: "Familiarize with Lens as Kubernetes GUI", done: false },
-  { id: 3, content: "Setup GKE account", done: false }
-]
+const CLIENT_BACKEND_URL = process.env.NODE_ENV === "production" ? "http://localhost:8081" : "http://localhost:3003"
+const SERVER_BACKEND_URL = process.env.NODE_ENV === "production" ? "http://todo-backend-svc:1003" : "http://localhost:3003"
 
 const isEmpty = (value) => {
   return value === undefined || value === 0 || value === null || value === "";
@@ -60,7 +58,9 @@ app.get("/", async (req, res) => {
     }
   }
 
-  return res.render("index", { todos });
+  const result = await axios.get(`${SERVER_BACKEND_URL}/todos`)
+
+  return res.render("index", { todos: result.data, backend_url: CLIENT_BACKEND_URL });
 })
 
 const port = process.env.PORT ? process.env.PORT : 3000;

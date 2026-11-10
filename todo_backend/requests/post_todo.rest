@@ -1,0 +1,8 @@
+@todo = REPLACE_WITH_TODO
+
+POST http://localhost:3003/todos
+Content-Type: application/json
+
+{
+  "todo": {{todo}}
+}

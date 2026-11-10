@@ -10,7 +10,10 @@
     <img src="/images/image.jpg" style="display:block; margin:auto; border-radius: 25px" width="300px" height="300px" />
 
     <div style="margin: auto; width: 50%; height: 50px;" >
-      <form style="display: flex; justify-content: center; align-items: center; margin-top: 75px;">
+      <form
+        id="todo-form"
+        style="display: flex; justify-content: center; align-items: center; margin-top: 75px;"
+      >
         <input
           type="text"
           name="todo"
@@ -19,7 +22,6 @@
           maxlength="140"
           style="width: 500px; height: 40px; border: solid; border-radius: 5px; border-color:cadetblue; font-size: 15px; padding: 5px;"
         />
-        <span class="validity"></span>
         <button
           type="submit"
           style="width: 100px; height: 45px; margin-left: 10px; background-color: cadetblue; color: white; border: solid; font-size: 20"
@@ -34,14 +36,45 @@
     </div>
 
     <div style="margin: auto; width: 50%;">
-      <ul style="display: flex; justify-content: center; list-style-type: none;">
+      <ul style="display: flex; flex-flow: row wrap; justify-content: center; list-style-type: none;">
         <% todos.map((todo) => { %>
-          <li style="display: flex; align-items: center; background-color: #e6efef; width: 75%; margin: 20px; padding: 20px; font-size: 15px; font-weight: lighter;">
+          <li style="display: flex; align-items: center; background-color: #e6efef; width: 75%; margin: 10px; padding: 20px; font-size: 15px; font-weight: lighter;">
             <%= todo.content %>
           </li>
         <% }); %>
       </ul>
     </div>
   </body>
+
+  <script>
+    const backend_url = '<%= backend_url %>'
+    const form = document.querySelector("#todo-form")
+
+    const createNewTodo = async () => {
+      const formData = new FormData(form)
+      const todo = formData.get("todo")
+
+      try {
+        const response = await fetch(`${backend_url}/todos`, {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ "todo": todo })
+        })
+
+        if (response.ok) {
+          window.location.reload()
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault()
+      await createNewTodo()
+    })
+  </script>
 
 </html>

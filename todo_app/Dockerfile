@@ -3,4 +3,4 @@ WORKDIR /usr/src/app
 COPY package* .
 RUN npm install
 COPY . .
-CMD ["node", "index.mjs"]
+CMD ["npm", "start"]
