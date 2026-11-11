@@ -26,3 +26,4 @@ kubectl apply -f volumes
 
 - [2.1](https://github.com/jukaveka/devops-kubernetes/tree/2.1/log_output)
 - [2.2](https://github.com/jukaveka/devops-kubernetes/tree/2.2/todo_backend)
+- [2.3](https://github.com/jukaveka/devops-kubernetes/tree/2.3/log_output)
