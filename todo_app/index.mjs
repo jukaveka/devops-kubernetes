@@ -10,7 +10,7 @@ const __dirname = import.meta.dirname;
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 
-const CLIENT_BACKEND_URL = process.env.NODE_ENV === "production" ? "http://localhost:8081" : "http://localhost:3003"
+const CLIENT_BACKEND_URL = process.env.NODE_ENV === "production" ? "http://todo.localhost:8081" : "http://localhost:3003"
 const SERVER_BACKEND_URL = process.env.NODE_ENV === "production" ? "http://todo-backend-svc:1003" : "http://localhost:3003"
 
 const isEmpty = (value) => {

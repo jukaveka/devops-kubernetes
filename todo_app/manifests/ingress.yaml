@@ -6,7 +6,8 @@ metadata:
     app.kubernetes.io/name: todo-app-ingress
 spec:
   rules:
-    - http:
+    - host: todo.localhost
+      http:
         paths:
         - pathType: Prefix
           path: "/"
