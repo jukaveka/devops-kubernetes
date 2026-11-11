@@ -13,12 +13,28 @@ spec:
       labels:
         app: log-output
     spec:
+
       volumes:
         - name: log-output-volume
           emptyDir: {}
+        - name: log-output-config
+          configMap:
+            name: log-output-server-config
+            items:
+              - key: file-content
+                path: content.txt
+
       containers:
       - name: log-output-server
-        image: jukaveyo/log-output-server:2.1.2
+        image: jukaveyo/log-output-server:2.5.0
+        env:
+          - name: MESSAGE
+            valueFrom:
+              configMapKeyRef:
+                key: message
+                name: log-output-server-config
         volumeMounts:
         - name: log-output-volume
           mountPath: /usr/src/app/output
+        - name: log-output-config
+          mountPath: /usr/src/app/files

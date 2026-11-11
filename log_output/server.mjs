@@ -1,3 +1,4 @@
+import "dotenv/config"
 import express from "express";
 const app = express();
 import { readFile } from "fs/promises";
@@ -27,10 +28,21 @@ const readPongCount = async () => {
   }
 }
 
+const readContentFile = async () => {
+  try {
+    const content = await readFile("files/content.txt", { encoding: "utf8" });
+    return content;
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
 app.get("/", async (req, res) => {
   const log = await readLastLog();
   const count = await readPongCount();
-  return res.send(`${log} <br\> ${count}`);
+  const message = process.env.MESSAGE;
+  const content = await readContentFile()
+  return res.send(`file content: ${content} <br\> env variable: message=${message} <br\> ${log} <br\> ${count}`);
 })
 
 const port = process.env.PORT ? process.env.PORT : 3003;

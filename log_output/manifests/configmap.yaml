@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: log-output-server-config
+data:
+  message: "Some super insightful message here"
+  file-content: |
+    content: "Some non-sensitive file content here"
