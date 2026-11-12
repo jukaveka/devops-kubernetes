@@ -1,17 +1,12 @@
 import express from "express";
 const app = express();
 import axios from "axios";
-
 import { mkdir, stat, writeFile } from "fs/promises";
-
 import path from "path";
 const __dirname = import.meta.dirname;
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
-
-const CLIENT_BACKEND_URL = process.env.NODE_ENV === "production" ? "http://todo.localhost:8081" : "http://localhost:3003"
-const SERVER_BACKEND_URL = process.env.NODE_ENV === "production" ? "http://todo-backend-svc:1003" : "http://localhost:3003"
 
 const isEmpty = (value) => {
   return value === undefined || value === 0 || value === null || value === "";
@@ -49,7 +44,7 @@ app.get("/", async (req, res) => {
   if (!isValid(fetchedAt)) {
     try {
       await mkdir(dirPath, { recursive: true })
-      const response = await fetch("https://picsum.photos/1200")
+      const response = await fetch(process.env.IMAGE_FETCH_URL)
       const arrayBuffer = await response.arrayBuffer()
       const buffer = Buffer.from(arrayBuffer)
       await writeFile(filePath, buffer)
@@ -58,12 +53,12 @@ app.get("/", async (req, res) => {
     }
   }
 
-  const result = await axios.get(`${SERVER_BACKEND_URL}/todos`)
+  const result = await axios.get(`${ process.env.SERVER_BACKEND_URL }/todos`)
 
-  return res.render("index", { todos: result.data, backend_url: CLIENT_BACKEND_URL });
+  return res.render("index", { todos: result.data, backend_url: process.env.CLIENT_BACKEND_URL });
 })
 
-const port = process.env.PORT ? process.env.PORT : 3000;
+const port = process.env.PORT
 
 app.listen(port, () => {
   console.log(`Server started in port ${port}`)

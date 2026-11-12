@@ -18,7 +18,29 @@ spec:
             claimName: todo-app-claim
       containers:
       - name: todo-app
-        image: jukaveyo/todo-app:2.2.5
+        image: jukaveyo/todo-app:2.6.1
+        env:
+          - name: PORT
+            value: "3000"
+
+          - name: CLIENT_BACKEND_URL
+            valueFrom:
+              configMapKeyRef:
+                key: client_backend_url
+                name: todo-app-config
+
+          - name: SERVER_BACKEND_URL
+            valueFrom:
+              configMapKeyRef:
+                key: server_backend_url
+                name: todo-app-config
+
+          - name: IMAGE_FETCH_URL
+            valueFrom:
+              configMapKeyRef:
+                key: image_fetch_url
+                name: todo-app-config
+
         volumeMounts:
           - name: todo-app-public-files
             mountPath: /usr/src/app/public

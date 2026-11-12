@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todo-app-config
+data:
+  client_backend_url: "http://todo.localhost:8081"
+  server_backend_url: "http://todo-backend-svc:1003"
+  image_fetch_url: "https://picsum.photos/1200"
