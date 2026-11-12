@@ -3,10 +3,6 @@ import express from "express";
 const app = express();
 import cors from "cors"
 
-const FRONTEND_URL = process.env.NODE_ENV === "production"
-  ? "http://localhost:8081"
-  : "http://localhost:3000"
-
 const todos = [
   { id: 1, content: "Need to learn EJS for Kubernetes course", done: true },
   { id: 2, content: "Familiarize with Lens as Kubernetes GUI", done: false },
@@ -19,9 +15,9 @@ const getNewId = () => {
 }
 
 app.use(bodyParser.json())
-app.use(cors({ origin: FRONTEND_URL }))
-
-console.log(FRONTEND_URL)
+if (process.env.NODE_ENV === "development") {
+  app.use(cors({ origin: process.env.DEV_FRONTEND_URL }))
+}
 
 app.get("/todos", (req, res) => {
   return res.json(todos)
@@ -39,7 +35,7 @@ app.post("/todos", (req, res) => {
   return res.status(200).send(newTodo)
 })
 
-const port = process.env.PORT ? process.env.PORT : 3003;
+const port = process.env.PORT
 
 app.listen(port, () => {
   console.log(`Server started in port ${port}`)

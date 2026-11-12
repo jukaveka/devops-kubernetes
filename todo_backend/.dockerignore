@@ -1,0 +1,8 @@
+.env
+.gitignore
+.dockerignore
+Dockerfile
+node_modules/
+requests/
+manifests/
+README.md

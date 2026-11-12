@@ -14,4 +14,10 @@ spec:
     spec:
       containers:
       - name: todo-backend
-        image: jukaveyo/todo-backend:2.2.1
+        image: jukaveyo/todo-backend:2.6.1
+        env:
+          - name: PORT
+            valueFrom:
+              configMapKeyRef:
+                key: port
+                name: todo-backend-config

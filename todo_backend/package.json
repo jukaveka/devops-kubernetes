@@ -9,11 +9,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=production node index.mjs",
-    "dev": "NODE_ENV=development npx nodemon index.mjs"
+    "dev": "NODE_ENV=development npx nodemon --env-file=.env index.mjs"
   },
   "dependencies": {
     "body-parser": "^2.4.0",
     "cors": "^2.8.6",
+    "dotenv": "^18.0.10",
     "express": "^5.3.0"
   },
   "devDependencies": {
