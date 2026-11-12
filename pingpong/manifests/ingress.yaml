@@ -7,7 +7,8 @@ metadata:
     app.kubernetes.io/name: ping-pong-ingress
 spec:
   rules:
-    - http:
+    - host: log.localhost
+      http:
         paths:
         - pathType: Prefix
           path: "/pingpong"

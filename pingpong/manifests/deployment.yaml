@@ -15,4 +15,4 @@ spec:
     spec:
       containers:
       - name: ping-pong
-        image: jukaveyo/ping-pong:2.1.0
+        image: jukaveyo/ping-pong:2.5.0
