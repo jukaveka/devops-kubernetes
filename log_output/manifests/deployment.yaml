@@ -26,7 +26,7 @@ spec:
 
       containers:
       - name: log-output-server
-        image: jukaveyo/log-output-server:2.5.0
+        image: jukaveyo/log-output-server:2.5.3
         env:
           - name: MESSAGE
             valueFrom:

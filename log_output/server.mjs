@@ -1,8 +1,12 @@
-import "dotenv/config"
 import express from "express";
 const app = express();
 import { readFile } from "fs/promises";
 import axios from "axios";
+
+if (process.env.NODE_ENV === "development") {
+  const dotenv = await import("dotenv")
+  dotenv.config()
+}
 
 const pingpongAddress = process.env.NODE_ENV === "production"
   ? "http://ping-pong-svc:1002/pings"
