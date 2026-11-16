@@ -1,2 +1,5 @@
 node_modules
 files
+.env
+manifests/secrets.yaml
+key.txt

@@ -1,18 +1,38 @@
 import express from "express";
 const app = express();
 import { readFile, writeFile } from "fs/promises";
+import { connectToDatabase } from "./db.mjs";
+import { Ping } from "./models.mjs";
 
-let count = 0;
+await connectToDatabase()
 
 app.get("/pingpong", async (req, res) => {
-  const oldCount = count;
-  count = count + 1;
-  await writeFile("files/count.txt", `Ping / Pongs: ${oldCount}` ,{ encoding: "utf8" } );
-  return res.send(`pong ${oldCount}`);
+  const pings = await Ping.findOne({ 
+    attributes: ["id", "counter"],
+    where: { id: 1 } }
+  )
+  let count;
+
+  if (!pings) {
+    await Ping.create({ counter: 1 })
+    count = 0
+  } else {
+    count = pings.counter
+    pings.counter = pings.counter + 1
+    await pings.save()
+  }
+
+  await writeFile("files/count.txt", `Ping / Pongs: ${count}` ,{ encoding: "utf8" } );
+  return res.send(`pong ${count}`);
 })
 
 app.get("/pings", async  (req, res) => {
-  const content = await readFile("files/count.txt", { encoding: "utf8" })
+  const pings = await Ping.findOne({ 
+    attributes: ["id", "counter"],
+    where: { id: 1 } }
+  )
+
+  const content = `Ping / Pongs: ${pings.counter}`
   return res.json({ pings: content })
 })
 

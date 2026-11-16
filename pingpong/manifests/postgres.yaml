@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ping-pong-postgres
+spec:
+  selector:
+    matchLabels:
+      app: ping-pong-postgres
+  serviceName: postgres
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ping-pong-postgres
+    spec:
+      containers:
+      - name: ping-pong-postgres
+        image: postgres:14-alpine3.24
+ 
+        env:
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secrets
+                key: postgres_password
+ 
+        ports:
+          - name: db
+            containerPort: 5432
+ 
+        volumeMounts:
+        - name: postgres-data
+          mountPath: /var/lib/postgresql/data
+          subPath: postgres
+
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-data
+    spec:
+      storageClassName: local-path
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 100Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  labels:
+    app: ping-pong-postgres
+spec:
+  selector:
+    app: ping-pong-postgres
+  ports:
+  - port: 5432
+    name: db
+  clusterIP: None

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.mjs",
-    "dev": "npx nodemon index.mjs",
+    "dev": "npx nodemon --env-file=.env index.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,7 +13,10 @@
   "license": "MIT",
   "type": "commonjs",
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "pg": "^8.23.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.8"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"

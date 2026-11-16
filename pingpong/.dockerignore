@@ -1,6 +1,8 @@
 Dockerfile
 .dockerignore
 .gitignore
+.env
 node_modules/
 README.md
 manifests/
+key.txt

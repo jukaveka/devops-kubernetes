@@ -15,4 +15,17 @@ spec:
     spec:
       containers:
       - name: ping-pong
-        image: jukaveyo/ping-pong:2.5.0
+        image: jukaveyo/ping-pong:2.7.2
+        env:
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secrets
+                key: postgres_url
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "64Mi"
+          limits:
+            cpu: "250m"
+            memory: "128Mi"
