@@ -14,10 +14,22 @@ spec:
     spec:
       containers:
       - name: todo-backend
-        image: jukaveyo/todo-backend:2.6.1
+        image: jukaveyo/todo-backend:2.8.0
         env:
           - name: PORT
             valueFrom:
               configMapKeyRef:
                 key: port
                 name: todo-backend-config
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                key: postgres_url
+                name: todo-backend-secrets
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "64Mi"
+          limits:
+            cpu: "250m"
+            memory: "128Mi"

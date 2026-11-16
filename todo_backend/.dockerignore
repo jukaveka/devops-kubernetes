@@ -1,8 +1,11 @@
 .env
 .gitignore
 .dockerignore
-Dockerfile
+
 node_modules/
 requests/
 manifests/
+
+Dockerfile
+key.txt
 README.md

@@ -1,37 +1,32 @@
-import bodyParser from "body-parser";
 import express from "express";
 const app = express();
+
+import bodyParser from "body-parser";
 import cors from "cors"
 
-const todos = [
-  { id: 1, content: "Need to learn EJS for Kubernetes course", done: true },
-  { id: 2, content: "Familiarize with Lens as Kubernetes GUI", done: false },
-  { id: 3, content: "Setup GKE account", done: false }
-]
+import { connectToDatabase } from "./db.mjs";
+import { Todo } from "./models.mjs";
 
-const getNewId = () => {
-  const identifiers = todos.map(todo => todo.id)
-  return Math.max(...identifiers) + 1
-}
+await connectToDatabase()
 
 app.use(bodyParser.json())
 if (process.env.NODE_ENV === "development") {
   app.use(cors({ origin: process.env.DEV_FRONTEND_URL }))
 }
 
-app.get("/todos", (req, res) => {
+app.get("/todos", async (req, res) => {
+  const todos = await Todo.findAll({})
   return res.json(todos)
 })
 
-app.post("/todos", (req, res) => {
-  const todo = req.body.todo
+app.post("/todos", async (req, res) => {
+  const content = req.body.todo
 
-  if (!todo) {
+  if (!content) {
     return res.status(400).json({ error: "Malformatted request: todo is missing" })
   }
 
-  const newTodo = { id: getNewId(), content: todo }
-  todos.push(newTodo)
+  const newTodo = await Todo.create({ content })
   return res.status(200).send(newTodo)
 })
 
