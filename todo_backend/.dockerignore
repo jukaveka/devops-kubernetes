@@ -7,5 +7,6 @@ requests/
 manifests/
 
 Dockerfile
+newTodo.Dockerfile
 key.txt
 README.md
