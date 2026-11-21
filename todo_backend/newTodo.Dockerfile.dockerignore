@@ -1,0 +1,12 @@
+.env
+.gitignore
+.dockerignore
+
+node_modules/
+requests/
+manifests/
+
+Dockerfile
+newTodo.Dockerfile
+key.txt
+README.md
