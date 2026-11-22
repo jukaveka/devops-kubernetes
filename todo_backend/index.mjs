@@ -24,6 +24,8 @@ app.get("/todos", async (req, res) => {
 app.post("/todos", async (req, res) => {
   const content = req.body.todo
 
+  req.log.info(`todo: ${content}`)
+
   if (!content ) {
     const errorMessage = "Malformatted request: todo is required."
     req.log.error(errorMessage)

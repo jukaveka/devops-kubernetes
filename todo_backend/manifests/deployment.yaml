@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: todo-backend
-        image: jukaveyo/todo-backend:2.10.0
+        image: jukaveyo/todo-backend:2.10.2
         env:
           - name: PORT
             valueFrom:
