@@ -1,0 +1,21 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: todo-backend-routes
+  namespace: project
+spec:
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: my-gateway
+      namespace: gateway-system
+  hostnames:
+    - "todo.localhost"
+  rules:
+    - matches:
+      - path: 
+          type: PathPrefix
+          value: /todos
+      backendRefs:
+        - name: "todo-backend-svc"
+          port:  1003
