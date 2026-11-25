@@ -1,8 +1,11 @@
-files/content.txt
+manifests/
+node_modules/
+manifests/
+
 .env
 .gitignore
-manifests/
-node_modules
-README.md
 .dockerignore
+
 *.Dockerfile
+files/content.txt
+README.md

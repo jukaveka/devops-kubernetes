@@ -6,6 +6,7 @@ import { Ping } from "./models.mjs";
 
 await connectToDatabase()
 
+
 app.get("/pingpong", async (req, res) => {
   const pings = await Ping.findOne({
     attributes: ["id", "counter"],
@@ -27,10 +28,14 @@ app.get("/pingpong", async (req, res) => {
 })
 
 app.get("/pings", async  (req, res) => {
-  const pings = await Ping.findOne({
+  let pings = await Ping.findOne({
     attributes: ["id", "counter"],
     where: { id: 1 } }
   )
+
+  if (!pings) {
+    pings = await Ping.create({ counter: 1 })
+  }
 
   const content = `Ping / Pongs: ${pings.counter}`
   return res.json({ pings: content })

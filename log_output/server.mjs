@@ -29,6 +29,7 @@ const readPongCount = async () => {
     return response.data.pings;
   } catch (error) {
     console.log(error.message)
+    return false
   }
 }
 
@@ -47,6 +48,16 @@ app.get("/", async (req, res) => {
   const message = process.env.MESSAGE;
   const content = await readContentFile()
   return res.send(`file content: ${content} <br\> env variable: message=${message} <br\> ${log} <br\> ${count}`);
+})
+
+app.get("/healthz", async (req, res) => {
+  const pingIsReady = await readPongCount();
+
+  if (!pingIsReady) {
+    return res.status(500).json({ error: "Some required systems not available" })
+  }
+
+  return res.status(200).json({ message: "Application is ready to accept traffic" })
 })
 
 const port = process.env.PORT ? process.env.PORT : 3003;
