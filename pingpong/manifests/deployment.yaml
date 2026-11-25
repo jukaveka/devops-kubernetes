@@ -16,12 +16,21 @@ spec:
       containers:
       - name: ping-pong
         image: jukaveyo/ping-pong:4.1.2
+
         env:
           - name: DATABASE_URL
             valueFrom:
               secretKeyRef:
                 name: postgres-secrets
                 key: postgres_url
+
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+
         resources:
           requests:
             cpu: "100m"

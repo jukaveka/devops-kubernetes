@@ -33,6 +33,12 @@ spec:
               configMapKeyRef:
                 key: message
                 name: log-output-server-config
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 3003
+          initialDelaySeconds: 10
+          periodSeconds: 10
 
         volumeMounts:
         - name: log-output-volume
