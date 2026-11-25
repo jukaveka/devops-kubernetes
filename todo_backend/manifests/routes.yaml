@@ -18,4 +18,4 @@ spec:
           value: /todos
       backendRefs:
         - name: "todo-backend-svc"
-          port:  1003
+          port: 1003
