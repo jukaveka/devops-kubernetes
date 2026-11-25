@@ -15,4 +15,14 @@ export const connectToDatabase = async () => {
   }
 }
 
+export const testDatabaseConnection = async () => {
+  try {
+    await sequelize.authenticate()
+    return true
+  } catch (error) {
+    console.log("Database connection not ready: ", error)
+    return false
+  }
+}
+
 export default sequelize

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: ping-pong
-        image: jukaveyo/ping-pong:2.7.2
+        image: jukaveyo/ping-pong:4.1.1
         env:
           - name: DATABASE_URL
             valueFrom:

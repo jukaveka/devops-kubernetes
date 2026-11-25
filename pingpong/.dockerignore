@@ -1,8 +1,11 @@
-Dockerfile
+node_modules/
+manifests/
+requests/
+
 .dockerignore
 .gitignore
 .env
-node_modules/
+
+Dockerfile
 README.md
-manifests/
 key.txt

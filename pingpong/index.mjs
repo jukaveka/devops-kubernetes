@@ -1,7 +1,7 @@
 import express from "express";
 const app = express();
 import { readFile, writeFile } from "fs/promises";
-import { connectToDatabase } from "./db.mjs";
+import { connectToDatabase, testDatabaseConnection } from "./db.mjs";
 import { Ping } from "./models.mjs";
 
 await connectToDatabase()
@@ -34,6 +34,16 @@ app.get("/pings", async  (req, res) => {
 
   const content = `Ping / Pongs: ${pings.counter}`
   return res.json({ pings: content })
+})
+
+app.get("/healthz", async (req, res) => {
+  const dbReady = await testDatabaseConnection()
+
+  if (!dbReady) {
+    return res.status(500).json({ error: "Database is not ready to accept connection" })
+  }
+
+  return res.status(200).json({ message: "Application is healthy and ready to accept conncetions." })
 })
 
 const port = process.env.PORT ? process.env.PORT : 3000;
