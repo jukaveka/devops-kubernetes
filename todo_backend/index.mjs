@@ -5,7 +5,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import logger from "pino-http";
 
-import { connectToDatabase } from "./db.mjs";
+import { connectToDatabase, testDatabaseConnection } from "./db.mjs";
 import { Todo } from "./models.mjs";
 
 await connectToDatabase()
@@ -38,6 +38,17 @@ app.post("/todos", async (req, res) => {
 
   const newTodo = await Todo.create({ content })
   return res.status(200).send(newTodo)
+})
+
+app.get("/healthz", async (req, res) => {
+  const result = await testDatabaseConnection()
+
+  if (!result.ready) {
+    req.log.error(`Database connection is not ready. Error: ${result.error.information}`)
+    return res.status(500).json({ message: "Server is not ready to handle requests.", error: result.error?.name })
+  }
+
+  return res.status(200).send("Server is ready to handle requests.")
 })
 
 const port = process.env.PORT

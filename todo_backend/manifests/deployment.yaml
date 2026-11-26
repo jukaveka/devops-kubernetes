@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: todo-backend
-        image: jukaveyo/todo-backend:2.10.2
+        image: jukaveyo/todo-backend:4.2.0
         env:
           - name: PORT
             valueFrom:
@@ -26,6 +26,14 @@ spec:
               secretKeyRef:
                 key: postgres_url
                 name: todo-backend-secrets
+
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 3003
+          initialDelaySeconds: 5
+          periodSeconds: 5
+
         resources:
           requests:
             cpu: "100m"
