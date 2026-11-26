@@ -43,3 +43,4 @@ Coming soon (GKE mayhem)
 
 - [4.1.](https://github.com/jukaveka/devops-kubernetes/tree/4.1/pingpong)
 - [4.2.](https://github.com/jukaveka/devops-kubernetes/tree/4.2/todo_app)
+- [4.3.](https://github.com/jukaveka/devops-kubernetes/blob/4.3/prometheus_query.md)
