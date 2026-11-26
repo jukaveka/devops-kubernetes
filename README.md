@@ -42,3 +42,4 @@ Coming soon (GKE mayhem)
 ### Chapter 5
 
 - [4.1.](https://github.com/jukaveka/devops-kubernetes/tree/4.1/pingpong)
+- [4.2.](https://github.com/jukaveka/devops-kubernetes/tree/4.2/todo_app)
