@@ -18,7 +18,7 @@ spec:
             claimName: todo-app-claim
       containers:
       - name: todo-app
-        image: jukaveyo/todo-app:4.2.0
+        image: jukaveyo/todo-app:4.2.1
         env:
           - name: PORT
             value: "3000"
@@ -46,6 +46,13 @@ spec:
             path: /healthz
             port: 3000
           initialDelaySeconds: 5
+          periodSeconds: 5
+
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 3000
+          initialDelaySeconds: 15
           periodSeconds: 5
 
         volumeMounts:

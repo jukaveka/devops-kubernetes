@@ -32,6 +32,8 @@ const getTodos = async () => {
   return await axios.get(`${ process.env.SERVER_BACKEND_URL }/todos`)
 }
 
+let isHealthy = true;
+
 app.get("/", async (req, res) => {
   let fetchedAt;
   const dirPath = path.join(__dirname, "public", "images")
@@ -59,10 +61,19 @@ app.get("/", async (req, res) => {
 
   const result = await getTodos()
 
-  return res.render("index", { todos: result.data, backend_url: process.env.CLIENT_BACKEND_URL });
+  return res.render("index", { todos: result.data, backend_url: process.env.CLIENT_BACKEND_URL, isHealthy });
+})
+
+app.post("/break", (req, res) => {
+  isHealthy = false
+  return res.render("index", { isHealthy, backend_url: process.env.CLIENT_BACKEND_URL })
 })
 
 app.get("/healthz", async (req, res) => {
+  if (!isHealthy) {
+    return res.status(500).json({ message: "todo app is not ready to handle requests" })
+  }
+
   try {
     await getTodos()
     return res.status(200).json({ message: "todo app is ready to handle requests" })

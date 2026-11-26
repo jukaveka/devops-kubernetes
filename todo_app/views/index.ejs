@@ -5,45 +5,69 @@
   </head>
 
   <body>
-    <h1 style="text-align: center;"> To-do application </h1>
+    <% if (!isHealthy) { %>
+      <div style="display: block; margin: auto; margin-top: 5em; justify-content: center; padding: 1em; width: 50%; background-color: #9C3848;">
+        <h1 style="text-align: center; color:white; margin-bottom: 2em"> System Failure  </h1>
+        <p style="text-align: center; color: white; font-size: large;"> The todo app is currently not live. Please retry in a bit. </p>
+      </div>
 
-    <img src="/images/image.jpg" style="display:block; margin:auto; border-radius: 25px" width="300px" height="300px" />
+    <% } else { %>
+      <h1 style="text-align: center;"> To-do application </h1>
 
-    <div style="margin: auto; width: 50%; height: 50px;" >
-      <form
-        id="todo-form"
-        style="display: flex; justify-content: center; align-items: center; margin-top: 75px;"
-      >
-        <input
-          type="text"
-          name="todo"
-          required
-          placeholder="Enter new todo (max 140 characters)"
-          maxlength="140"
-          style="width: 500px; height: 40px; border: solid; border-radius: 5px; border-color:cadetblue; font-size: 15px; padding: 5px;"
-        />
-        <button
-          type="submit"
-          style="width: 100px; height: 45px; margin-left: 10px; background-color: cadetblue; color: white; border: solid; font-size: 20"
+      <img src="/images/image.jpg" style="display:block; margin:auto; border-radius: 25px" width="300px" height="300px" />
+
+      <div style="margin: auto; width: 50%; height: 50px;" >
+        <form
+          id="todo-form"
+          style="display: flex; justify-content: center; align-items: center; margin-top: 75px;"
         >
-          Send
-        </button>
-      </form>
-    </div>
+          <input
+            type="text"
+            name="todo"
+            required
+            placeholder="Enter new todo (max 140 characters)"
+            maxlength="140"
+            style="width: 500px; height: 40px; border: solid; border-radius: 5px; border-color:cadetblue; font-size: 15px; padding: 5px;"
+          />
+          <button
+            type="submit"
+            style="width: 100px; height: 45px; margin-left: 10px; background-color: cadetblue; color: white; border: solid; font-size: 20"
+          >
+            Send
+          </button>
+        </form>
+      </div>
 
-    <div style="display: flex; margin: auto; width: 50%; justify-content: center; margin-top: 25px;">
-      <h2 style="justify-content: center;"> Todos </h2>
-    </div>
+      <div style="display: flex; margin: auto; width: 50%; justify-content: center; margin-top: 25px;">
+        <h2 style="justify-content: center;"> Todos </h2>
+      </div>
 
-    <div style="margin: auto; width: 50%;">
-      <ul style="display: flex; flex-flow: row wrap; justify-content: center; list-style-type: none;">
-        <% todos.map((todo) => { %>
-          <li style="display: flex; align-items: center; background-color: #e6efef; width: 75%; margin: 10px; padding: 20px; font-size: 15px; font-weight: lighter;">
-            <%= todo.content %>
-          </li>
-        <% }); %>
-      </ul>
-    </div>
+      <div style="margin: auto; width: 50%;">
+        <ul style="display: flex; flex-flow: row wrap; justify-content: center; list-style-type: none;">
+          <% todos.map((todo) => { %>
+            <li style="display: flex; align-items: center; background-color: #e6efef; width: 75%; margin: 10px; padding: 20px; font-size: 15px; font-weight: lighter;">
+              <%= todo.content %>
+            </li>
+          <% }); %>
+        </ul>
+      </div>
+
+      <div style="margin: auto; width: 50%; display: flex; justify-content: center;">
+        <form
+          id="break-form"
+          action="/break"
+          method="POST"
+          style="display: flex; justify-content: center; align-items: center; margin-top: 75px;"
+        >
+          <button
+            type="submit"
+            style="width: 100px; height: 45px; margin-left: 10px; background-color: red; color: white; border: solid; font-size: 20"
+          >
+            BREAK
+          </button>
+        </form>
+      </div>
+    <% } %>
   </body>
 
   <script>

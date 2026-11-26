@@ -19,6 +19,9 @@ spec:
       - path:
           type: PathPrefix
           value: /images
+      - path:
+          type: Exact
+          value: /break
       backendRefs:
         - name: todo-app-svc
           port: 1004
