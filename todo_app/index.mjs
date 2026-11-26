@@ -58,6 +58,16 @@ app.get("/", async (req, res) => {
   return res.render("index", { todos: result.data, backend_url: process.env.CLIENT_BACKEND_URL });
 })
 
+app.get("/healthz", async (req, res) => {
+  try {
+    await axios.get(`${ process.env.SERVER_BACKEND_URL }/todos`)
+    return res.status(200).json({ message: "todo app is ready to handle requests" })
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ message: "todo app is not ready to handle requests" })
+  }
+})
+
 const port = process.env.PORT
 
 app.listen(port, () => {

@@ -1,8 +1,11 @@
+manifests/
+node_modules/
+requests/
+
 .dockerignore
 .gitignore
 .env
+
 Dockerfile
 nodemon.json
 README.md
-manifests/
-node_modules/
