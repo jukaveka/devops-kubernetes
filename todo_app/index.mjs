@@ -28,6 +28,10 @@ const isValid = (fetchedAt) => {
   return minutes <= 10;
 }
 
+const getTodos = async () => {
+  return await axios.get(`${ process.env.SERVER_BACKEND_URL }/todos`)
+}
+
 app.get("/", async (req, res) => {
   let fetchedAt;
   const dirPath = path.join(__dirname, "public", "images")
@@ -53,14 +57,14 @@ app.get("/", async (req, res) => {
     }
   }
 
-  const result = await axios.get(`${ process.env.SERVER_BACKEND_URL }/todos`)
+  const result = await getTodos()
 
   return res.render("index", { todos: result.data, backend_url: process.env.CLIENT_BACKEND_URL });
 })
 
 app.get("/healthz", async (req, res) => {
   try {
-    await axios.get(`${ process.env.SERVER_BACKEND_URL }/todos`)
+    await getTodos()
     return res.status(200).json({ message: "todo app is ready to handle requests" })
   } catch (error) {
     console.log(error)
